@@ -1,0 +1,9 @@
+{
+  "javascript.format.enable": false,
+  "javascript.validate.enable": false,
+  "typescript.format.enable": false,
+  "typescript.validate.enable": false,
+  "eslint.enable": true,
+  "eslint.format.enable": true,
+  "editor.formatOnSave": true
+}
