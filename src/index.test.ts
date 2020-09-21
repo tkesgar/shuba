@@ -1,8 +1,36 @@
-import { ErrorRequestHandler, RequestHandler } from "express";
+import {
+  ErrorRequestHandler,
+  RequestHandler,
+  Request,
+  Response,
+} from "express";
 import { createTestResponse } from "@tkesgar/ariadoa";
 import { handle } from ".";
 
 describe("handle", () => {
+  it("should be sent the same request and response object", async () => {
+    let expectedReq: Request;
+    let expectedRes: Response;
+    let actualReq: Request;
+    let actualRes: Response;
+
+    await createTestResponse([
+      ((req, res, next) => {
+        expectedReq = req;
+        expectedRes = res;
+        next();
+      }) as RequestHandler,
+      handle(({ req, res }) => {
+        actualReq = req;
+        actualRes = res;
+        return true;
+      }),
+    ]);
+
+    expect(actualReq).toBe(expectedReq);
+    expect(actualRes).toBe(expectedRes);
+  });
+
   it("should send data from fn", async () => {
     const { payload } = await createTestResponse([
       handle(() => ({ foo: "bar" })),
