@@ -1,6 +1,6 @@
 import { ErrorRequestHandler, RequestHandler } from "express";
 import { createTestResponse } from "@tkesgar/ariadoa";
-import handle from ".";
+import { handle } from ".";
 
 describe("handle", () => {
   it("should send data from fn", async () => {
