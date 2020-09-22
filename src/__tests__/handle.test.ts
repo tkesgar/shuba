@@ -5,7 +5,7 @@ import {
   Response,
 } from "express";
 import { createTestResponse } from "@tkesgar/ariadoa";
-import { handle } from ".";
+import { handle } from "..";
 
 describe("handle", () => {
   it("should be sent the same request and response object", async () => {
