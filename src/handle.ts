@@ -5,9 +5,7 @@ export type HandleFunction<T = void> = (ctx: {
   res: Response;
 }) => T | Promise<T>;
 
-export default function handle<T = void>(
-  fn: HandleFunction<T>
-): RequestHandler {
+export function handle<T = void>(fn: HandleFunction<T>): RequestHandler {
   return (req, res, next) =>
     (async () => {
       const result = await fn({ req, res });
