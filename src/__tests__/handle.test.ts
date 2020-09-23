@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   ErrorRequestHandler,
   RequestHandler,
@@ -8,7 +9,7 @@ import { createTestResponse } from "@tkesgar/ariadoa";
 import { handle } from "..";
 
 describe("handle", () => {
-  it("should be sent the same request and response object", async () => {
+  it("should provide the same request and response object", async () => {
     let expectedReq: Request;
     let expectedRes: Response;
     let actualReq: Request;
@@ -131,7 +132,6 @@ describe("handle", () => {
         handle(() => {
           return Symbol("SHUBA SHUBA SHUBA");
         }),
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         ((err, req, res, next) => {
           res.send(err.message);
         }) as ErrorRequestHandler,
@@ -149,7 +149,6 @@ describe("handle", () => {
             return "foo";
           };
         }),
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         ((err, req, res, next) => {
           res.send(err.message);
         }) as ErrorRequestHandler,
