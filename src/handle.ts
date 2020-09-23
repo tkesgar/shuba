@@ -1,6 +1,6 @@
 import { Request, Response, RequestHandler } from "express";
 
-export type HandleFunction<T = void> = (ctx: {
+type HandleFunction<T = void> = (ctx: {
   req: Request;
   res: Response;
 }) => T | Promise<T>;

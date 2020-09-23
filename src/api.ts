@@ -10,7 +10,7 @@ export enum ApiCode {
   AuthForbidden = "AUTH_FORBIDDEN",
 }
 
-export interface ApiResponse<T = unknown> {
+interface ApiResponse<T = unknown> {
   status: ApiStatus;
   data: T;
   code?: string;
