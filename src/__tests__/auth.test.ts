@@ -122,6 +122,4 @@ describe("auth", () => {
   it.todo(
     "should be able to override function to return response if authFn returns false"
   );
-  it.todo("should return error fail response if fn throws ApiError");
-  it.todo("should fallthrough error if fn throws normal Error");
 });

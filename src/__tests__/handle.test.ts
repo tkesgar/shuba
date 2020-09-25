@@ -6,7 +6,7 @@ import {
   Response,
 } from "express";
 import { createTestResponse } from "@tkesgar/ariadoa";
-import { handle } from "..";
+import { handle, ApiCode, ApiError, ApiStatus } from "..";
 
 describe("handle", () => {
   it("should provide the same request and response object", async () => {
@@ -186,6 +186,48 @@ describe("handle", () => {
 
       expect(actualError).toEqual(expectedError);
       expect(response.payload).toBe("watame wa warukunai yo ne");
+    });
+  });
+
+  describe("error handling", () => {
+    it("should return error fail response if fn throws ApiError", async () => {
+      const { statusCode, payload } = await createTestResponse([
+        handle(() => {
+          throw new ApiError("Access to this resource is forbidden", {
+            status: ApiStatus.Fail,
+            code: ApiCode.AuthForbidden,
+            data: { subaru: "shuba shuba" },
+            statusCode: 403,
+          });
+        }),
+      ]);
+
+      expect(statusCode).toBe(403);
+      expect(JSON.parse(payload)).toEqual({
+        status: "fail",
+        code: "AUTH_FORBIDDEN",
+        message: "Access to this resource is forbidden",
+        data: { subaru: "shuba shuba" },
+      });
+    });
+
+    it("should fallthrough error if fn throws normal Error", async () => {
+      const expectedError = new Error("Oh no");
+      let actualError: Error;
+
+      const { statusCode, payload } = await createTestResponse([
+        handle(() => {
+          throw expectedError;
+        }),
+        ((err, req, res, next) => {
+          actualError = err;
+          res.status(502).send(err.message);
+        }) as ErrorRequestHandler,
+      ]);
+
+      expect(actualError).toBe(expectedError);
+      expect(statusCode).toBe(502);
+      expect(payload).toBe("Oh no");
     });
   });
 });

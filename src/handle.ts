@@ -1,4 +1,5 @@
 import { Request, Response, RequestHandler } from "express";
+import { ApiError } from "./api";
 
 type HandleFunction<T = void> = (ctx: {
   req: Request;
@@ -34,5 +35,12 @@ export function handle<T = void>(fn: HandleFunction<T>): RequestHandler {
           res.send(result);
           break;
       }
-    })().catch(next);
+    })().catch((err: unknown) => {
+      if (err instanceof ApiError) {
+        res.status(err.statusCode).json(err);
+        return;
+      }
+
+      next(err);
+    });
 }

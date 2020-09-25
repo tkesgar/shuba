@@ -1,5 +1,5 @@
 import { Request, Response, RequestHandler } from "express";
-import { ApiCode, ApiError, createApiFail } from "./api";
+import { ApiCode, createApiFail } from "./api";
 import { handle } from "./handle";
 
 type AuthFunction<T> = (ctx: {
@@ -33,27 +33,18 @@ export function auth<T = unknown>(
   } = opts;
 
   return handle(async ({ req, res }) => {
-    try {
-      const user = await getUser(req);
-      if (!user) {
-        return onInvalid({ req, res });
-      }
+    const user = await getUser(req);
+    if (!user) {
+      return onInvalid({ req, res });
+    }
 
-      if (!authFn) {
-        return;
-      }
+    if (!authFn) {
+      return;
+    }
 
-      const authResult = await authFn({ req, user });
-      if (!authResult) {
-        return onForbidden({ req, res, user });
-      }
-    } catch (error) {
-      if (error instanceof ApiError) {
-        res.status(error.statusCode);
-        return error;
-      }
-
-      throw error;
+    const authResult = await authFn({ req, user });
+    if (!authResult) {
+      return onForbidden({ req, res, user });
     }
   });
 }
