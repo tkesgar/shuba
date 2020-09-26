@@ -1,3 +1,5 @@
+## [0.1.1-0](https://github.com/tkesgar/shuba/compare/v0.1.0...v0.1.1-0) (2020-09-26)
+
 # 0.1.0 (2020-09-26)
 
 ### Code Refactoring
