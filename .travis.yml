@@ -11,11 +11,17 @@ script:
   - npm test -- --coverage
   - npx codecov
 
-deploy:
-  provider: npm
-  email: t.kesgar@live.com
-  api_key:
-    secure: ccOnUX+S+ezZF3l4qgxkyhxO6rrybxVm8mcoe7ign3qPyS6DIs82AdU1WLqXBQYdzpnYmXw+Y0tqeqzcYy27fdruIgmv5h1FGMeCkcrzFUB2+teYTsNf8KpdGvO+rM2/NqEIq03TY+vhVbOQzMg7o91MtkZexRx4HroAH+IWWlMGZzjFRovG5RE9VkEa2QwpF5rBs2cBW+w4J0WzhlxHeoOZKYv9JNyJTWgykZ8VI2vbE4Q/EywbWyslGcZngq24ASWN+qt4BboRkYXoY9vZdjJ0jZKK4SXC9YZwXB3f4mC1mQDDzJUcJJjRrRQ/yvuNFhZpz3b1wrQfsEXRgnln9UJi+ZGXTa2ioFUvDLOMIJsxObtA17NXKQQyGxV/5bbaMTQcZdol5iGmkMuzam25bKvUPRusn+g4ma6hkM9eAj+8pd3QoJNA57iE885kfy4carLMvgikUi9d0Z0QIzHR1OgIzTTBRBnDRWPWAY73/CqZ7gP4z/3IU7QDmLzrMoUZR68s52ajjzXwtATcfJE0qXt6NNz3tUnLf4Xub9tCeHWBss59HRP9PQezlpuyJjmo4yfe6NewGoN1u9iS4Fm+MViUNuo114OuYEy1OsVyVPEkvl23Zp8+nLlBk5ZcMaKtNEjXvHZUKxbsmgSfEdA4Cz/HKck85EOYlNhuOjhBa24=
-  on:
-    tags: true
-    condition: "$TRAVIS_TAG =~ ^v.*$"
+jobs:
+  include:
+    - stage: deploy
+      node_js: node
+      script:
+        - npm run build
+      deploy:
+        provider: npm
+        email: t.kesgar@live.com
+        api_token:
+          secure: ccOnUX+S+ezZF3l4qgxkyhxO6rrybxVm8mcoe7ign3qPyS6DIs82AdU1WLqXBQYdzpnYmXw+Y0tqeqzcYy27fdruIgmv5h1FGMeCkcrzFUB2+teYTsNf8KpdGvO+rM2/NqEIq03TY+vhVbOQzMg7o91MtkZexRx4HroAH+IWWlMGZzjFRovG5RE9VkEa2QwpF5rBs2cBW+w4J0WzhlxHeoOZKYv9JNyJTWgykZ8VI2vbE4Q/EywbWyslGcZngq24ASWN+qt4BboRkYXoY9vZdjJ0jZKK4SXC9YZwXB3f4mC1mQDDzJUcJJjRrRQ/yvuNFhZpz3b1wrQfsEXRgnln9UJi+ZGXTa2ioFUvDLOMIJsxObtA17NXKQQyGxV/5bbaMTQcZdol5iGmkMuzam25bKvUPRusn+g4ma6hkM9eAj+8pd3QoJNA57iE885kfy4carLMvgikUi9d0Z0QIzHR1OgIzTTBRBnDRWPWAY73/CqZ7gP4z/3IU7QDmLzrMoUZR68s52ajjzXwtATcfJE0qXt6NNz3tUnLf4Xub9tCeHWBss59HRP9PQezlpuyJjmo4yfe6NewGoN1u9iS4Fm+MViUNuo114OuYEy1OsVyVPEkvl23Zp8+nLlBk5ZcMaKtNEjXvHZUKxbsmgSfEdA4Cz/HKck85EOYlNhuOjhBa24=
+        on:
+          tags: true
+          condition: "$TRAVIS_TAG =~ ^v.*$"

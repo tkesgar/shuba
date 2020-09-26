@@ -20,6 +20,9 @@
     "url": "https://github.com/tkesgar/shuba/issues"
   },
   "homepage": "https://github.com/tkesgar/shuba#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=12"
   },
