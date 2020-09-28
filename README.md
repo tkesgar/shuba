@@ -8,8 +8,6 @@
 > Remember that Subaru's also an idol. When she sings,she transforms into a
 > swan.
 
-[![Oozora Subaru by Shigure Ui](https://static.zerochan.net/Oozora.Subaru.full.3003199.jpg)](https://www.pixiv.net/en/artworks/82732089)
-
 shuba is a library that provides a number of functions to work with
 [Express.js][express] easier.
 
