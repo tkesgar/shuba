@@ -1,10 +1,12 @@
 import { Request, Response, RequestHandler } from "express";
 import { ApiError } from "./api";
 
+type HandleValue<T> = T | { toJSON(): T };
+
 type HandleFunction<T = void> = (ctx: {
   req: Request;
   res: Response;
-}) => T | Promise<T>;
+}) => HandleValue<T> | Promise<HandleValue<T>>;
 
 export function handle<T = void>(fn: HandleFunction<T>): RequestHandler {
   return (req, res, next) =>
