@@ -230,4 +230,20 @@ describe("handle", () => {
       expect(payload).toBe("Oh no");
     });
   });
+
+  describe("handling object with toJSON() function", () => {
+    it("should return the same value as object with toJSON()", async () => {
+      const obj: any = { foo: "bar", baz: null, uwu: 123 };
+
+      const response1 = await createTestResponse([handle(() => obj)]);
+      const response2 = await createTestResponse([
+        handle(() => ({ toJSON: () => obj })),
+      ]);
+
+      expect(response1.headers).toEqual(response2.headers);
+      expect(JSON.parse(response1.payload)).toEqual(
+        JSON.parse(response2.payload)
+      );
+    });
+  });
 });
