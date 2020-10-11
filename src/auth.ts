@@ -1,5 +1,5 @@
 import { Request, Response, RequestHandler } from "express";
-import { ApiCode, createApiFail } from "./api";
+import { createApiFail } from "./api";
 import { handle } from "./handle";
 
 type AuthFunction<T> = (ctx: {
@@ -24,11 +24,11 @@ export function auth<T = unknown>(
     },
     onInvalid = ({ res }) => {
       res.status(401);
-      return createApiFail(ApiCode.AuthInvalid, "Request is not authenticated");
+      return createApiFail("AUTH_INVALID", "Request is not authenticated");
     },
     onForbidden = ({ res }) => {
       res.status(403);
-      return createApiFail(ApiCode.AuthForbidden, "User is not authorized");
+      return createApiFail("AUTH_FORBIDDEN", "User is not authorized");
     },
   } = opts;
 

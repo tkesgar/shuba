@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createTestResponse } from "@tkesgar/ariadoa";
 import { ErrorRequestHandler } from "express";
-import { send, ApiError, ApiCode, ApiStatus } from "..";
+import { send, ApiError, ApiStatus } from "..";
 
 describe("send", () => {
   it("should return success response with data", async () => {

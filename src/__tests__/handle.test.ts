@@ -6,7 +6,7 @@ import {
   Response,
 } from "express";
 import { createTestResponse } from "@tkesgar/ariadoa";
-import { handle, ApiCode, ApiError, ApiStatus } from "..";
+import { handle, ApiError, ApiStatus } from "..";
 
 describe("handle", () => {
   it("should provide the same request and response object", async () => {
@@ -195,7 +195,7 @@ describe("handle", () => {
         handle(() => {
           throw new ApiError("Access to this resource is forbidden", {
             status: ApiStatus.Fail,
-            code: ApiCode.AuthForbidden,
+            code: "AUTH_FORBIDDEN",
             data: { subaru: "shuba shuba" },
             statusCode: 403,
           });

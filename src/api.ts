@@ -4,12 +4,6 @@ export enum ApiStatus {
   Error = "error",
 }
 
-export enum ApiCode {
-  Failed = "FAILED",
-  AuthInvalid = "AUTH_INVALID",
-  AuthForbidden = "AUTH_FORBIDDEN",
-}
-
 interface ApiResponse<T = unknown> {
   status: ApiStatus;
   data: T;
@@ -53,7 +47,7 @@ export class ApiError<T = unknown> extends Error {
   constructor(message: string, opts: ApiErrorConstructorOpts<T> = {}) {
     const {
       status = ApiStatus.Fail,
-      code = ApiCode.Failed,
+      code = "FAILED",
       data = null,
       statusCode = 400,
     } = opts;

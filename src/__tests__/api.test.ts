@@ -2,7 +2,6 @@ import {
   createApiSuccess,
   createApiFail,
   createApiError,
-  ApiCode,
   ApiError,
   ApiStatus,
 } from "..";
@@ -95,7 +94,7 @@ describe("ApiError", () => {
 
     expect(err.message).toBe("Bad API request");
     expect(err.status).toBe(ApiStatus.Fail);
-    expect(err.code).toBe(ApiCode.Failed);
+    expect(err.code).toBe("FAILED");
     expect(err.statusCode).toBe(400);
     expect(err.data).toEqual(null);
   });
@@ -120,7 +119,7 @@ describe("ApiError", () => {
 
     expect(JSON.parse(JSON.stringify(err))).toEqual({
       status: ApiStatus.Fail,
-      code: ApiCode.Failed,
+      code: "FAILED",
       message: "Bad API request",
       data: null,
     });
