@@ -78,7 +78,6 @@ describe("unknownErrorHandler", () => {
       unknownErrorHandler(),
       ((err, req, res, next) => {
         mockErrorHandler(err);
-        next(err);
       }) as ErrorRequestHandler,
     ]);
 
