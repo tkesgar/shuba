@@ -67,6 +67,7 @@ export class ApiError<T = unknown> extends Error {
       case ApiStatus.Error:
         return createApiError(this.code, this.message, this.data);
       default:
+        /* istanbul ignore next: should never be thrown */
         throw new Error(`Unknown status: ${this.status}`);
     }
   }
