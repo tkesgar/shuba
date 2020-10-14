@@ -1,5 +1,4 @@
 import { Request, Response, RequestHandler } from "express";
-import { ApiError } from "./api";
 
 type HandleValue<T> = T | { toJSON(): T };
 
@@ -37,12 +36,5 @@ export function handle<T = void>(fn: HandleFunction<T>): RequestHandler {
           res.send(result);
           break;
       }
-    })().catch((err: unknown) => {
-      if (err instanceof ApiError) {
-        res.status(err.statusCode).json(err);
-        return;
-      }
-
-      next(err);
-    });
+    })().catch(next);
 }

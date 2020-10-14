@@ -6,7 +6,7 @@ import {
   Response,
 } from "express";
 import { createTestResponse } from "@tkesgar/ariadoa";
-import { handle, ApiError, ApiStatus } from "..";
+import { handle } from "..";
 
 describe("handle", () => {
   it("should provide the same request and response object", async () => {
@@ -190,27 +190,6 @@ describe("handle", () => {
   });
 
   describe("error handling", () => {
-    it("should return error fail response if fn throws ApiError", async () => {
-      const { statusCode, payload } = await createTestResponse([
-        handle(() => {
-          throw new ApiError("Access to this resource is forbidden", {
-            status: ApiStatus.Fail,
-            code: "AUTH_FORBIDDEN",
-            data: { subaru: "shuba shuba" },
-            statusCode: 403,
-          });
-        }),
-      ]);
-
-      expect(statusCode).toBe(403);
-      expect(JSON.parse(payload)).toEqual({
-        status: "fail",
-        code: "AUTH_FORBIDDEN",
-        message: "Access to this resource is forbidden",
-        data: { subaru: "shuba shuba" },
-      });
-    });
-
     it("should fallthrough error if fn throws normal Error", async () => {
       const expectedError = new Error("Oh no");
       let actualError: Error;
