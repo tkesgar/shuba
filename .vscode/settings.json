@@ -1,7 +1,9 @@
 {
   "javascript.format.enable": false,
   "javascript.validate.enable": false,
-  "eslint.enable": true,
   "eslint.format.enable": true,
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  }
 }
